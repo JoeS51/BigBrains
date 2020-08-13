@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smol Brains</title>
+    <title>Big Brains</title>
     <script src="something.js"></script> 
+    <style>
+        body {background-color: powderblue;}
+        h1   {color: black}
+        p    {color: black}
+        </style>
 </head>
 <body>
-    <h1>Big Brains</h1>
+    <div id ="main">
+    <body style="background-color:lavender;">
+    <center><h1 style="background-color:powderblue; font-family: verdana">Big Brains</h1></center>
     <p>Add student</p>
     <p id="student">random person</p>
-    <label for="name">Name:</label><br>
+    <b><label for="name">Name:</label><br></b>
     <input type = "text" id = "name" value = ""><br><br>
     <input type = "button" value = "Enter" onclick="bruh()">
-
+    </div>
     <script>
         function bruh(){
             localStorage.setItem("lastname", document.getElementById("name").value);
