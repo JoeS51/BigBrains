@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Big Brains</title>
-    <script src="something.js"></script> 
+    
     <style>
         body {background-color: powderblue;}
         h1   {color: black}
@@ -12,21 +12,48 @@
         </style>
 </head>
 <body>
-    <div id ="main">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-analytics.js"></script>
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyDjaekrBA5I-SPpuKhpF-hEBT6Rv0kFMiA",
+    authDomain: "bigbrainswebsite.firebaseapp.com",
+    databaseURL: "https://bigbrainswebsite.firebaseio.com",
+    projectId: "bigbrainswebsite",
+    storageBucket: "bigbrainswebsite.appspot.com",
+    messagingSenderId: "299167430604",
+    appId: "1:299167430604:web:cd81cf09a521938018cf69",
+    measurementId: "G-X3VLQ2E9FZ"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    
+        function bruh(){
+            
+            if(document.getElementById("name").value !== "" && document.getElementById("grade").value !== ""){
+                firebase.database().ref("student").push({
+                    name: document.getElementById("name").value,
+                    grade: document.getElementById("grade").value         
+                });
+            }
+            document.getElementById("name").value = "";
+            document.getElementById("grade").value = "";
+        }  
+    </script>
     <body style="background-color:lavender;">
     <center><h1 style="background-color:powderblue; font-family: verdana">Big Brains</h1></center>
     <p>Add student</p>
     <p id="student">random person</p>
     <b><label for="name">Name:</label><br></b>
-    <input type = "text" id = "name" value = ""><br><br>
-    <input type = "button" value = "Enter" onclick="bruh()">
-    </div>
-    <script>
-        function bruh(){
-            localStorage.setItem("lastname", document.getElementById("name").value);
-            //<p>localStorage.getItem("lastname")</p>
-            document.getElementById("student").innerHTML = localStorage.getItem("lastname");
-        }  
-    </script>
+    <input type = "text" placeholder = "name" id = "name" value = ""><br>
+    <input type = "text" placeholder = "grade" id = "grade" value = ""><br><br>
+    <input type = "button" value = "Enter" onclick= "bruh()">
 </body>
 </html>
