@@ -9,7 +9,30 @@
         body {background-color: powderblue;}
         h1   {color: black}
         p    {color: black}
-        </style>
+        .tabcontent{
+            display: none;
+        }
+        .tab {
+         overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        }
+        .tab button {
+        background-color: inherit;
+        margin: 0px auto;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 30px;
+        font-family: "Times New Roman", Times, serif;
+        }
+        .tab button:hover {
+        background-color: #ddd;
+        }
+
+    </style>
 </head>
 <body>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -34,9 +57,7 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
-    
         function bruh(){
-            
             if(document.getElementById("name").value !== "" && document.getElementById("grade").value !== ""){
                 firebase.database().ref("student").push({
                     name: document.getElementById("name").value,
@@ -45,15 +66,52 @@
             }
             document.getElementById("name").value = "";
             document.getElementById("grade").value = "";
-        }  
+        } 
+
+        function openSubject(evt, subject){
+        document.getElementById("tabs").style.display = "none";
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(subject).style.display = "block";
+        evt.currentTarget.className += " active";
+        } 
     </script>
     <body style="background-color:lavender;">
-    <center><h1 style="background-color:powderblue; font-family: verdana">Big Brains</h1></center>
-    <p>Add student</p>
-    <p id="student">random person</p>
-    <b><label for="name">Name:</label><br></b>
-    <input type = "text" placeholder = "name" id = "name" value = ""><br>
-    <input type = "text" placeholder = "grade" id = "grade" value = ""><br><br>
-    <input type = "button" value = "Enter" onclick= "bruh()">
+    <center><h1 style=" font-family: Times New Roman, Times, serif; font-size:100px">Big Brains</h1></center>
+    <div class = "tab">
+    <button class="tablinks" onclick="openSubject(event, 'reading')">Reading</button>
+    <button class="tablinks" onclick="openSubject(event, 'math')">Math</button>
+    </div>
+    
+    <div id = "tabs">
+        <center><h2>Click on the tabs to see students in each subject</h2>
+        <p>This website is to keep track of students' progress</p></center>
+    </div>
+
+    <div id = "math" class = "tabcontent">
+    <center><h3>Add student by entering information and submitting it</h3>
+    <input type = "text" placeholder = "Name" id = "name" value = ""><br>
+    <input type = "text" placeholder = "Grade" id = "grade" value = ""><br><br>
+    <input type = "button" value = "Enter" onclick= "bruh()"></center>
+    </div>
+
+    <div id = "reading" class = "tabcontent">
+        <p> This is for reading</p>
+    </div>
+    
+    <div id = "students">
+        <ul>
+            <li>Coffee</li>
+            <li>Tea</li>
+            <li>Milk</li>
+        </ul>
+    </div>
 </body>
 </html>
