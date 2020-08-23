@@ -9,31 +9,60 @@
         body {background-color: powderblue;}
         h1   {color: black}
         p    {color: black}
-        .tabcontent{
+        .tabcontentM{
+            display: none;
+        }
+        .tabcontentR{
             display: none;
         }
         .tab {
-         overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
         }
         .tab button {
-        background-color: inherit;
-        margin: 0px auto;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        transition: 0.3s;
-        font-size: 30px;
-        font-family: "Times New Roman", Times, serif;
+            background-color: inherit;
+            margin: 0px auto;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 30px;
+            font-family: "Times New Roman", Times, serif;
         }
         .tab button:hover {
-        background-color: #ddd;
+            background-color: #ddd;
         }
-
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown:hover .dropdown-content {display: block;}
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
     </style>
 </head>
+
 <body>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase.js"></script>
@@ -68,26 +97,55 @@
             document.getElementById("grade").value = "";
         } 
 
-        function openSubject(evt, subject){
-        document.getElementById("tabs").style.display = "none";
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(subject).style.display = "block";
-        evt.currentTarget.className += " active";
+        function openSubjectR(evt, subject){
+            document.getElementById("tabs").style.display = "none";
+            document.getElementById("studentsM").style.display = "none";
+            document.getElementById("addStudentsM").style.display = "none";
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontentR");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinksR");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(subject).style.display = "block";
+            evt.currentTarget.className += " active";
+        } 
+        
+        function openSubjectM(evt, subject){
+            document.getElementById("tabs").style.display = "none";
+            document.getElementById("studentsR").style.display = "none";
+            document.getElementById("addStudentsR").style.display = "none";
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontentM");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinksM");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(subject).style.display = "block";
+            evt.currentTarget.className += " active";
         } 
     </script>
-    <body style="background-color:lavender;">
-    <center><h1 style=" font-family: Times New Roman, Times, serif; font-size:100px">Big Brains</h1></center>
-    <div class = "tab">
-    <button class="tablinks" onclick="openSubject(event, 'reading')">Reading</button>
-    <button class="tablinks" onclick="openSubject(event, 'math')">Math</button>
+    <body style="background-color:khaki;">
+    <center><h1 style=" font-family: Times New Roman, Times, serif; font-size:100px; color: green">Big Brains</h1></center>
+    <div class="dropdown">
+        <button class="dropbtn">READING</button>
+        <div class="dropdown-content">
+          <button class="tablinksR" style = "border: none;" onclick="openSubjectR(event, 'addStudentsR')">Add Students</button><br>
+        <button class="tablinksR" style = "border: none;" onclick="openSubjectR(event, 'studentsR')">View Students</button>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">MATH</button>
+        <div class="dropdown-content">
+        <button class="tablinksM" style = "border: none;" onclick="openSubjectM(event, 'addStudentsM')">Add Students</button><br>
+        <button class="tablinksM" style = "border: none;" onclick="openSubjectM(event, 'studentsM')">View Students</button>
+        </div>
     </div>
     
     <div id = "tabs">
@@ -95,22 +153,27 @@
         <p>This website is to keep track of students' progress</p></center>
     </div>
 
-    <div id = "math" class = "tabcontent">
+    <div id = "addStudentsM" class = "tabcontentM">
     <center><h3>Add student by entering information and submitting it</h3>
     <input type = "text" placeholder = "Name" id = "name" value = ""><br>
     <input type = "text" placeholder = "Grade" id = "grade" value = ""><br><br>
     <input type = "button" value = "Enter" onclick= "bruh()"></center>
     </div>
+    <div id = "studentsM" class = "tabcontentM">
+        <ul>
+            <li> u</li>
+            <li> h</li>
+        </ul>
+    </div>
 
-    <div id = "reading" class = "tabcontent">
+    <div id = "addStudentsR" class = "tabcontentR">
         <p> This is for reading</p>
     </div>
-    
-    <div id = "students">
+
+    <div id = "studentsR" class = "tabcontentR">
         <ul>
-            <li>Coffee</li>
-            <li>Tea</li>
-            <li>Milk</li>
+            <li> b</li>
+            <li> r</li>
         </ul>
     </div>
 </body>
